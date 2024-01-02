@@ -1,5 +1,9 @@
 package com.etiya;
 
+import com.etiya.business.concretes.BrandServiceImpl;
+import com.etiya.business.dtos.requests.CreateBrandRequest;
+import com.etiya.dataAccess.concretes.BrandRepositoryImpl;
+import com.etiya.dataAccess.concretes.BrandRepositoryImplHibernate;
 import com.etiya.entities.Brand;
 import com.etiya.entities.Car;
 import com.etiya.entities.Model;
@@ -40,5 +44,18 @@ public class Main {
         Transmission transmission1 = new Transmission();
         transmission1.setId(1);
         transmission1.setName("manuel");
+
+
+        //interfaceler new'lenemez
+
+        //BRAND
+        CreateBrandRequest request = new CreateBrandRequest();
+        request.setName("BMW");
+        //default repository
+        BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepositoryImpl());
+        brandService.add(request);
+        //Hibernate olan
+        BrandServiceImpl brandService2 = new BrandServiceImpl(new BrandRepositoryImplHibernate());
+        brandService2.add(request);
     }
 }
