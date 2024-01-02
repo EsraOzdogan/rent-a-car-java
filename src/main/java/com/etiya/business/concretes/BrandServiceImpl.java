@@ -7,8 +7,8 @@ import com.etiya.dataAccess.concretes.BrandRepositoryImpl;
 import com.etiya.entities.Brand;
 
 public class BrandServiceImpl {      //BrandManager
-    //son kullanicindan istenen alan, burda veri tabanindaki alani direkt kullaniciya vermis oluruz bu nedenle dtolar kullaniyoruz
-    //public Brand add(Brand brand){}
+    //son kullanicindan istenen alan, burda veri tabanindaki alani direkt kullaniciya vermis oluruz public Brand add(Brand brand){} bu sekilde kullanirsak bu nedenle dtolar kullaniyoruz
+    //public Brand add(Brand brand){}  //kullanicidan ne entity istenir ne de entity verilir. Bu nedenle dto kullaniyoruz --response- request pattern
 
     private BrandRepository brandRepository;
     //dependency injection
@@ -25,7 +25,8 @@ public class BrandServiceImpl {      //BrandManager
 
         Brand createdBrand = brandRepository.add(brand);
 
-        CreatedBrandResponse createdBrandResponse = new CreatedBrandResponse();    //veri tabani bana brand dönderiyor ama ben kullaniciya sadece belli alanlari dönderiyorum-- mapping(field mapping)
+        //response cevirmem lazim en nihayetinseo nedenle response nesnesi olusturdum
+        CreatedBrandResponse createdBrandResponse = new CreatedBrandResponse();    //tüm alanlari tek tek setlemiycem--object mapper //-- mapping(field mapping) , reflection
         createdBrandResponse.setId(createdBrand.getId());
         createdBrandResponse.setName(createdBrand.getName());
         createdBrandResponse.setCreatedDate(createdBrand.getCreatedDate());

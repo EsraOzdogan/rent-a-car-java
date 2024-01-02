@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class CreatedBrandResponse {
-    private int id;
+    private int id;   //kullanicinin marka detayina gitmesi icin responseda id veriyoruz
     private String name;
     private LocalDateTime createdDate;
 }

@@ -56,7 +56,7 @@ public class Main {
         CreateBrandRequest request = new CreateBrandRequest();
         request.setName("BMW");
         //default repository
-        BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepositoryImpl());
+        BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepositoryImpl()); // BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepository());  diyemem cünkü interfaceler nenwlenemez. BrandRepository, BrandRepositoryImpl'nin referansini tutabileceği icin BrandRepositoryImpl'i newleyebiliriz
         brandService.add(request);
         //Hibernate olan
         BrandServiceImpl brandService2 = new BrandServiceImpl(new BrandRepositoryImplHibernate());
