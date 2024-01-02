@@ -1,9 +1,13 @@
 package com.etiya;
 
 import com.etiya.business.concretes.BrandServiceImpl;
+import com.etiya.business.concretes.FuelServiceImpl;
+import com.etiya.business.concretes.TransmissionServiceImpl;
 import com.etiya.business.dtos.requests.CreateBrandRequest;
-import com.etiya.dataAccess.concretes.BrandRepositoryImpl;
-import com.etiya.dataAccess.concretes.BrandRepositoryImplHibernate;
+import com.etiya.business.dtos.requests.CreateFuelRequest;
+import com.etiya.business.dtos.requests.CreateTransmissionRequest;
+import com.etiya.business.dtos.responses.CreatedTransmissionResponse;
+import com.etiya.dataAccess.concretes.*;
 import com.etiya.entities.Brand;
 import com.etiya.entities.Car;
 import com.etiya.entities.Model;
@@ -57,5 +61,24 @@ public class Main {
         //Hibernate olan
         BrandServiceImpl brandService2 = new BrandServiceImpl(new BrandRepositoryImplHibernate());
         brandService2.add(request);
+
+        //FUEL
+        CreateFuelRequest fuelRequest = new CreateFuelRequest();
+        fuelRequest.setName("Diesel");
+        FuelServiceImpl fuelService = new FuelServiceImpl(new FuelRepositoryImpl());
+        fuelService.add(fuelRequest);
+        //hibernate
+        FuelServiceImpl fuelService2 = new FuelServiceImpl(new FuelRepositoryImplHibernate());
+        fuelService2.add(fuelRequest);
+
+
+        //TRANSMISSION
+        CreateTransmissionRequest transmissionRequest = new CreateTransmissionRequest();
+        transmissionRequest.setName("Manuel");
+        TransmissionServiceImpl transmissionService = new TransmissionServiceImpl(new TransmissionRepositoryImpl());
+        transmissionService.add(transmissionRequest);
+        //hibernate
+        TransmissionServiceImpl transmissionService2 = new TransmissionServiceImpl(new TransmissionRepositoryImplHibernate());
+        transmissionService2.add(transmissionRequest);
     }
 }
