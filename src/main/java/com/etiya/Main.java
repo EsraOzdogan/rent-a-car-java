@@ -8,6 +8,7 @@ import com.etiya.business.dtos.requests.CreateFuelRequest;
 import com.etiya.business.dtos.requests.CreateTransmissionRequest;
 import com.etiya.business.dtos.responses.CreatedBrandResponse;
 import com.etiya.business.dtos.responses.GetAllBrandResponse;
+import com.etiya.business.rules.BrandBusinessRules;
 import com.etiya.core.utilities.mapping.ModelMapperManager;
 import com.etiya.dataAccess.concretes.*;
 import com.etiya.entities.Brand;
@@ -67,7 +68,15 @@ public class Main {
         BrandServiceImpl brandService2 = new BrandServiceImpl(new BrandRepositoryImplHibernate());
         brandService2.add(request);*/
 
-        BrandServiceImpl brandService=new BrandServiceImpl(new BrandRepositoryImpl(),new ModelMapperManager(new ModelMapper()));
+        //mapper
+        //BrandServiceImpl brandService=new BrandServiceImpl(new BrandRepositoryImpl(),new ModelMapperManager(new ModelMapper()));
+
+        //rules
+        //request.setName("BMW");
+        BrandServiceImpl brandService = new BrandServiceImpl(
+                new BrandRepositoryImpl(),
+                new ModelMapperManager(new ModelMapper()),
+                new BrandBusinessRules(new BrandRepositoryImpl()));
 
         CreatedBrandResponse response = brandService.add(request);
         System.out.println(response.getName());

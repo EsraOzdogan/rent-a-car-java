@@ -6,6 +6,7 @@ import com.etiya.entities.Brand;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //islem yapan sınıflarda sınıf implemente edilmemis ya da extend edilmemisse ilerde problem yasanir
 public class BrandRepositoryImpl implements BrandRepository {   //BrandRepository, BrandRepositoryImpl'nin referansini tutar //implements ya da extends farketmez
@@ -50,5 +51,11 @@ public class BrandRepositoryImpl implements BrandRepository {   //BrandRepositor
     @Override
     public List<Brand> getAll() {
         return brands;
+    }
+
+    @Override
+    public Optional<Brand> getByName(String name) {
+        Optional<Brand> currentBrand = this.brands.stream().filter(brand -> brand.getName().equals(name)).findFirst(); //optional döner, sonucta böyle bir data olmayabilir yani
+        return currentBrand;
     }
 }

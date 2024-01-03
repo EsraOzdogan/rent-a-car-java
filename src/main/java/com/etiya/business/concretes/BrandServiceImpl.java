@@ -3,27 +3,29 @@ package com.etiya.business.concretes;
 import com.etiya.business.dtos.requests.CreateBrandRequest;
 import com.etiya.business.dtos.responses.CreatedBrandResponse;
 import com.etiya.business.dtos.responses.GetAllBrandResponse;
+import com.etiya.business.rules.BrandBusinessRules;
 import com.etiya.core.utilities.mapping.ModelMapperService;
 import com.etiya.dataAccess.abstracts.BrandRepository;
-import com.etiya.dataAccess.concretes.BrandRepositoryImpl;
 import com.etiya.entities.Brand;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 public class BrandServiceImpl {      //BrandManager
     //son kullanicindan istenen alan, burda veri tabanindaki alani direkt kullaniciya vermis oluruz public Brand add(Brand brand){} bu sekilde kullanirsak bu nedenle dtolar kullaniyoruz
     //public Brand add(Brand brand){}  //kullanicidan ne entity istenir ne de entity verilir. Bu nedenle dto kullaniyoruz --response- request pattern
 
     private BrandRepository brandRepository;
     private ModelMapperService modelMapperService;
+    private BrandBusinessRules brandBusinessRules;
     //dependency injection
-    public BrandServiceImpl(BrandRepository brandRepository, ModelMapperService modelMapperService) {
-        this.brandRepository = brandRepository;
-        this.modelMapperService = modelMapperService;
-    }
+   //@AllArgsConstructor eklendi constructor kullanmaya gerke yok artik
 
     public CreatedBrandResponse add(CreateBrandRequest createBrandRequest){
+        brandBusinessRules.brandNameCanNotBeDuplicated(createBrandRequest.getName());
+
         Brand brand = this.modelMapperService.forRequest().map(createBrandRequest,Brand.class);  //Brand.class Brand tipine cevir
 
 
