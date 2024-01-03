@@ -7,7 +7,6 @@ import com.etiya.business.dtos.requests.CreateBrandRequest;
 import com.etiya.business.dtos.requests.CreateFuelRequest;
 import com.etiya.business.dtos.requests.CreateTransmissionRequest;
 import com.etiya.business.dtos.responses.CreatedBrandResponse;
-import com.etiya.business.dtos.responses.CreatedTransmissionResponse;
 import com.etiya.business.dtos.responses.GetAllBrandResponse;
 import com.etiya.core.utilities.mapping.ModelMapperManager;
 import com.etiya.dataAccess.concretes.*;
@@ -86,20 +85,36 @@ public class Main {
         //FUEL
         CreateFuelRequest fuelRequest = new CreateFuelRequest();
         fuelRequest.setName("Diesel");
-        FuelServiceImpl fuelService = new FuelServiceImpl(new FuelRepositoryImpl());
+        /*FuelServiceImpl fuelService = new FuelServiceImpl(new FuelRepositoryImpl());
         fuelService.add(fuelRequest);
         //hibernate
         FuelServiceImpl fuelService2 = new FuelServiceImpl(new FuelRepositoryImplHibernate());
+        fuelService2.add(fuelRequest);*/
+
+        //mapper
+
+        FuelServiceImpl fuelService = new FuelServiceImpl(new FuelRepositoryImpl(),new ModelMapperManager(new ModelMapper()));
+        fuelService.add(fuelRequest);
+
+        FuelServiceImpl fuelService2 = new FuelServiceImpl(new FuelRepositoryImplHibernate(),new ModelMapperManager(new ModelMapper()));
         fuelService2.add(fuelRequest);
 
 
         //TRANSMISSION
         CreateTransmissionRequest transmissionRequest = new CreateTransmissionRequest();
         transmissionRequest.setName("Manuel");
-        TransmissionServiceImpl transmissionService = new TransmissionServiceImpl(new TransmissionRepositoryImpl());
+       /* TransmissionServiceImpl transmissionService = new TransmissionServiceImpl(new TransmissionRepositoryImpl());
         transmissionService.add(transmissionRequest);
         //hibernate
         TransmissionServiceImpl transmissionService2 = new TransmissionServiceImpl(new TransmissionRepositoryImplHibernate());
+        transmissionService2.add(transmissionRequest);*/
+
+        //mapper
+
+        TransmissionServiceImpl transmissionService = new TransmissionServiceImpl(new TransmissionRepositoryImpl(),new ModelMapperManager(new ModelMapper()));
+        transmissionService.add(transmissionRequest);
+
+        TransmissionServiceImpl transmissionService2 = new TransmissionServiceImpl(new TransmissionRepositoryImplHibernate(),new ModelMapperManager(new ModelMapper()));
         transmissionService2.add(transmissionRequest);
     }
 }
