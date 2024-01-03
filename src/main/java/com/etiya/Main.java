@@ -6,12 +6,16 @@ import com.etiya.business.concretes.TransmissionServiceImpl;
 import com.etiya.business.dtos.requests.CreateBrandRequest;
 import com.etiya.business.dtos.requests.CreateFuelRequest;
 import com.etiya.business.dtos.requests.CreateTransmissionRequest;
+import com.etiya.business.dtos.responses.CreatedBrandResponse;
 import com.etiya.business.dtos.responses.CreatedTransmissionResponse;
+import com.etiya.business.dtos.responses.GetAllBrandResponse;
 import com.etiya.dataAccess.concretes.*;
 import com.etiya.entities.Brand;
 import com.etiya.entities.Car;
 import com.etiya.entities.Model;
 import com.etiya.entities.Transmission;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -54,13 +58,28 @@ public class Main {
 
         //BRAND
         CreateBrandRequest request = new CreateBrandRequest();
-        request.setName("BMW");
+        request.setName("Opel");
         //default repository
         BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepositoryImpl()); // BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepository());  diyemem cünkü interfaceler nenwlenemez. BrandRepository, BrandRepositoryImpl'nin referansini tutabileceği icin BrandRepositoryImpl'i newleyebiliriz
         brandService.add(request);
         //Hibernate olan
         BrandServiceImpl brandService2 = new BrandServiceImpl(new BrandRepositoryImplHibernate());
         brandService2.add(request);
+
+
+
+        CreatedBrandResponse response = brandService.add(request);
+        System.out.println(response.getName());
+        System.out.println("--------------------------------------");
+
+
+        //List<Brand> allBrands = brandService.getAll();     //veri tabani entity direkt kullanmis olcaktik, o nedenle response-request patternine uyarak yeni bir dto objesi olusturmam lazim
+        List<GetAllBrandResponse> allBrands = brandService.getAll();
+
+        for (var brand:allBrands) {
+            System.out.println(brand.getId()+"/"+ brand.getName()+"/"+brand.getCreatedDate());
+        }
+
 
         //FUEL
         CreateFuelRequest fuelRequest = new CreateFuelRequest();
