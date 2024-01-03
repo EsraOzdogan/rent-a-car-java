@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+//islem yapan sınıflarda sınıf implemente edilmemis ya da extend edilmemisse ilerde problem yasanir
 public class BrandRepositoryImpl implements BrandRepository {   //BrandRepository, BrandRepositoryImpl'nin referansini tutar //implements ya da extends farketmez
 
     //veri tabani  gitmeden stream, collection ile calisma

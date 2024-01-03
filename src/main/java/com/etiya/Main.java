@@ -9,11 +9,13 @@ import com.etiya.business.dtos.requests.CreateTransmissionRequest;
 import com.etiya.business.dtos.responses.CreatedBrandResponse;
 import com.etiya.business.dtos.responses.CreatedTransmissionResponse;
 import com.etiya.business.dtos.responses.GetAllBrandResponse;
+import com.etiya.core.utilities.mapping.ModelMapperManager;
 import com.etiya.dataAccess.concretes.*;
 import com.etiya.entities.Brand;
 import com.etiya.entities.Car;
 import com.etiya.entities.Model;
 import com.etiya.entities.Transmission;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
@@ -60,13 +62,13 @@ public class Main {
         CreateBrandRequest request = new CreateBrandRequest();
         request.setName("Opel");
         //default repository
-        BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepositoryImpl()); // BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepository());  diyemem cünkü interfaceler nenwlenemez. BrandRepository, BrandRepositoryImpl'nin referansini tutabileceği icin BrandRepositoryImpl'i newleyebiliriz
+        /*BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepositoryImpl()); // BrandServiceImpl brandService = new BrandServiceImpl(new BrandRepository());  diyemem cünkü interfaceler nenwlenemez. BrandRepository, BrandRepositoryImpl'nin referansini tutabileceği icin BrandRepositoryImpl'i newleyebiliriz
         brandService.add(request);
         //Hibernate olan
         BrandServiceImpl brandService2 = new BrandServiceImpl(new BrandRepositoryImplHibernate());
-        brandService2.add(request);
+        brandService2.add(request);*/
 
-
+        BrandServiceImpl brandService=new BrandServiceImpl(new BrandRepositoryImpl(),new ModelMapperManager(new ModelMapper()));
 
         CreatedBrandResponse response = brandService.add(request);
         System.out.println(response.getName());
